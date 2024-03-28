@@ -49,3 +49,19 @@ void liberarMatriz(int** matriz, int n) {
     }
     delete[] matriz;
 }
+vector<int**> crearMatricesImpares(int n) {
+    vector<int**> matrices;
+    int d;
+    for (int i = 0; i < n; i++) {
+        cout << "Ingrese la dimension de la matriz " << i + 1 << ": ";
+        cin >> d;
+        // Validar que la dimensión sea impar
+        while (d % 2 == 0) {
+            cout << "La dimension debe ser impar. Ingrese nuevamente: ";
+            cin >> d;
+        }
+        int** nueva_matriz = crearMatrizImpar(d);
+        matrices.push_back(nueva_matriz);
+    }
+    return matrices;
+}
