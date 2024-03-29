@@ -14,10 +14,10 @@ void rotateMatrix(int** mat, int n) {
         }
     }
 
-    // Reverse each row of the matrix
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n / 2; j++) {
-            swap(mat[i][j], mat[i][n - j - 1]);
+    // Reverse each column of the matrix
+    for (int i = 0; i < n / 2; i++) {
+        for (int j = 0; j < n; j++) {
+            swap(mat[i][j], mat[n - i - 1][j]);
         }
     }
 }
@@ -26,10 +26,8 @@ int** crearMatrizImpar(int n) {
     for (int i = 0; i < n; ++i) {
         matriz[i] = new int[n];
     }
-
     int num = 1;
     int centro = n / 2; // Índice del elemento central
-
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             if (i == centro && j == centro) {
@@ -40,7 +38,7 @@ int** crearMatrizImpar(int n) {
             }
         }
     }
-
+    dimensiones.push_back(n);
     return matriz;
 }
 void liberarMatriz(int** matriz, int n) {
@@ -64,4 +62,13 @@ vector<int**> crearMatricesImpares(int n) {
         matrices.push_back(nueva_matriz);
     }
     return matrices;
+}
+int contarFilas(int indice) {
+    return dimensiones[indice];
+}
+void recorrerVector(const vector<int>& vec) {
+    cout << "Recorriendo el vector:" << endl;
+    for (size_t i = 0; i < vec.size(); ++i) {
+        cout << "Giros de matriz " << i + 1 << ": " << vec[i] << endl;
+    }
 }
