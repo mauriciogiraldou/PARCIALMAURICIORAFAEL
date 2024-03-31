@@ -1,0 +1,76 @@
+//Accion imprimir matriz personalizada.
+#include <iostream>
+using namespace std;
+
+void imprime_matriz(int* filas, int* columnas)
+{
+    
+    cout<<"digite el numero de filas: ";
+    cin>>*filas;
+    cout<<"digite el numero de columnas: ";
+    cin>>*columnas;
+    
+    //Arreglo matricial.
+    int matriz[*filas][*columnas];
+    
+    //Almacenando elementos en la matriz.
+    for(int i = 0; i<*filas; i++){
+        for(int j = 0; j<*columnas; j++){
+            cout<<"Digite un numero para el elemento ["<<i+1<<"]["<<j+1<<"]"<<": ";
+            cin>>matriz[i][j];
+        }
+    }
+    
+    //Mostrando la matriz.
+    for(int i = 0; i<*filas; i++){
+        for(int j = 0; j<*columnas; j++){
+            cout<<matriz[i][j]<<"   ";
+        }
+        //Salto de linea para las filas.
+        cout<<endl;
+    }
+    
+}
+
+//Ejemplo implementacion.
+int main()
+{
+    int num1, num2 = 0;
+    imprime_matriz(&num1, &num2);
+    return 0;
+}
+////////////////////////////////////////////////////////////////////////////////////////
+//Crear matrices desde el main.
+#include <iostream>
+using namespace std;
+int main()
+{
+    int filas, columnas = 0;
+    cout<<"digite el numero de filas: ";
+    cin>>filas;
+    cout<<"digite el numero de columnas: ";
+    cin>>columnas;
+
+    //Arreglo matricial, en este caso es "numeros".
+    int matrix[filas][columnas];
+    
+    //Almacenando elementos en la matriz.
+    for(int i = 0; i<filas; i++){
+        for(int j = 0; j<columnas; j++){
+            cout<<"Digite un numero para el elemento ["<<i+1<<"]["<<j+1<<"]"<<": ";
+            cin>>matrix[i][j];
+        }
+    }
+    
+    //Mostrando la matriz.
+    for(int i = 0; i<filas; i++){
+        for(int j = 0; j<columnas; j++){
+            cout<<matrix[i][j]<<"   ";
+        }
+        //Salto de linea para las filas.
+        cout<<endl;
+    }
+    
+    return 0;
+}
+///////////////////////////////////////////////////////////////////7
