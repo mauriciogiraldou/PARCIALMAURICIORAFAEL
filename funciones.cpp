@@ -72,3 +72,63 @@ void recorrerVector(const vector<int>& vec) {
         cout << "Giros de matriz " << i + 1 << ": " << vec[i] << endl;
     }
 }
+int validar_numero(int* a){
+    do {
+        cout<<"Ingrese el numero de elementos de la regla k(debe ser mayor o igual a 3): ";
+        cin>>*a;
+
+        if(cin.fail() || *a < 3){
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }else{
+            break;
+        }
+    } while(true);
+    cout<<"El numero ingresado es: "<<*a<<endl;
+    return *a;
+
+}
+int validar_filas_columnas(int* a){
+    do {
+        cout<<"Ingrese un numero entero positivo para coordenada fila/columna: ";
+        cin>>*a;
+
+        if(cin.fail() || *a < 0){
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }else{
+            break;
+        }
+    } while(true);
+    cout<<"El numero es: "<<*a<<endl;
+    return *a;
+
+}
+int validar_comparacion(int* a){
+    do {
+        cout<<"Ingrese un numero que sea -1, 0 o 1: ";
+        cin>>*a;
+
+        if(cin.fail() || *a < -1 || *a > 1){
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }else{
+            break;
+        }
+    } while(true);
+    cout<<"El numero ingresado es: "<<*a<<endl;
+    return *a;
+
+}
+int* regla_k(int *n){
+    int* arreglok = new int[*n];
+    for(int i= 0; i<2; i++){
+        validar_filas_columnas(&(arreglok[i]));
+    }
+
+    for(int i = 2; i<*n; i++){
+        validar_comparacion(&(arreglok[i]));
+    }
+
+    return arreglok;
+}
