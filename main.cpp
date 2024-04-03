@@ -1,12 +1,15 @@
 #include <iostream>
 #include <vector>
-
+//tres menos seguido se totea
 using namespace std;
 vector<int> dimensiones;
 vector<int> contadorDeGiros;
+void inicializarContadorDeGiros(int dimension) {
+    contadorDeGiros = vector<int>(dimension, 0);
+}
 void recorrerVector(const vector<int>& vec) {
     for (size_t i = 0; i < vec.size(); ++i) {
-        cout << "Giros de la estructura " << i + 1 << ": " << vec[i] << endl;
+        cout << "Giros de la matriz " << i + 1 << ": " << vec[i] << endl;
     }
 }
 int** crearMatrizImpar(int n) {
@@ -62,62 +65,44 @@ void compararElemento(vector<int**>& matrices, int fila, int columna, int* relac
         int elemento1 = matriz1[fila][columna];
         int elemento2 = matriz2[fila][columna];
         int fueradim=contarFilas(i);
-        if(elemento1 ==0 || elemento2 ==0){
+        if(elemento1 ==0){
             cout<<"Error se esta comparando la celda del centro ";
             break;
         }
         if (relacion[i] == -1) {
             int dim, dim2, contadorgiro = 0;
             if (elemento1 < elemento2) {
-                contadorDeGiros.push_back(0);
-            } else if (elemento1 >= elemento2){
-                while (elemento1 >= elemento2) {
-                    dim = contarFilas(i);
-                    rotateMatrix(matriz1, dim);
-                    elemento1 = matriz1[fila][columna];
-                    contadorgiro++;
-                    if(contadorgiro>3){
-                        contadorgiro=0;
-                        break;
-                    }
-                }
-                contadorDeGiros.push_back(contadorgiro);
+                contadorDeGiros[i] = contadorgiro;
+                contadorDeGiros[i + 1] = contadorgiro;
 
-            }
-            else if(elemento1 >= elemento2){
-                while (elemento1 >= elemento2) {
-                    dim2=contarFilas(i + 1);
+            }else{
+                while(elemento1>=elemento2){
+                    dim2=contarFilas(i + 1 );
                     rotateMatrix(matriz2,dim2);
                     elemento2=matriz2[fila][columna];
                     contadorgiro++;
+                    contadorDeGiros[i + 1]=contadorgiro;
                     if(contadorgiro>3){
                         contadorgiro=0;
-                        break;
+                        contadorDeGiros[i + 1]=contadorgiro;
+                        while(elemento1>=elemento2 & i==0){
+                            dim=contarFilas(i);
+                            rotateMatrix(matriz1,dim);
+                            elemento1=matriz1[fila][columna];
+                            contadorgiro++;
+                            contadorDeGiros[i] = contadorgiro;
+                            if(contadorgiro>3){
+                                cout<<"no se encontraron combinaciones"<<endl;
+                                break;
+                            }
+
+
+                        }
+
                     }
 
-
                 }
-                contadorDeGiros.push_back(contadorgiro);
             }
-            else if(elemento1 >= elemento2){
-                dim2=dim2 + 2;
-                int** matrizaumentada=crearMatrizImpar(dim2);
-                matrices[i+2]=matrizaumentada;
-                elemento2=matriz2[fila][columna];
-                while (elemento1 >= elemento2) {
-                    rotateMatrix(matriz2,dim2);
-                    elemento2=matriz2[fila][columna];
-                    contadorgiro++;
-
-
-                }
-
-
-
-
-
-            }
-
 
         } else if (relacion[i] == 0) {
             if (elemento1 == elemento2) {
@@ -223,6 +208,9 @@ int main() {
     if(mayor==0){
         mayor=3;
     }
+    if(mayor==1){
+        mayor=3;
+    }
     if(mayor%2==0){
         mayor++;
     }
@@ -232,9 +220,20 @@ int main() {
     for (int i = 2; i < num; ++i) {
         relacion[i - 2] = invocar_k[i];
     }
+    inicializarContadorDeGiros(n);
     compararElemento(matrices, fila, columna, relacion);
     recorrerVector(contadorDeGiros);
     // Liberar la memoria de todas las matrices al finalizar el programa
+    for (int k = 0; k < n; k++) {
+        cout << "Matriz " << k + 1 << ":\n";
+        for (int i = 0; i < mayor; i++) { // Corregido aquí
+            for (int j = 0; j < mayor; j++) { // Corregido aquí
+                cout << matrices[k][i][j] << "\t";
+            }
+            cout << endl;
+        }
+        cout << endl;
+    }
     for (int i = 0; i < n; ++i) {
         int** matriz = matrices[i];
         delete[] matriz[0]; // Solo necesitamos liberar la primera fila ya que se asignaron en bloques contiguos
