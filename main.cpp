@@ -30,6 +30,7 @@ int** crearMatrizImpar(int n) {
         }
     }
     dimensiones.push_back(n);
+
     return matriz;
 }
 void rotateMatrix(int** mat, int n) {
@@ -52,6 +53,7 @@ int contarFilas(int indice) {
 }
 vector<int**> crearMatricesImpares(int n,int d) {
     vector<int**> matrices;
+    vector<int> dimensiones;
     for (int i = 0; i < n; i++) {
         int** nueva_matriz = crearMatrizImpar(d);
         matrices.push_back(nueva_matriz);
@@ -59,18 +61,19 @@ vector<int**> crearMatricesImpares(int n,int d) {
     return matrices;
 }
 void compararElemento(vector<int**>& matrices, int fila, int columna, int* relacion) {
+    int dim, dim2, contadorgiro = 0;
     for (int i = 0; i < matrices.size() - 1; ++i) {
         int** matriz1 = matrices[i];
         int** matriz2 = matrices[i + 1];
         int elemento1 = matriz1[fila][columna];
         int elemento2 = matriz2[fila][columna];
         int fueradim=contarFilas(i);
-        if(elemento1 ==0){
-            cout<<"Error se esta comparando la celda del centro ";
+        if(elemento1==0){
+            cout<<"Error se esta comparando la celda del centro "<<endl;
             break;
         }
+
         if (relacion[i] == -1) {
-            int dim, dim2, contadorgiro = 0;
             if (elemento1 < elemento2) {
                 contadorDeGiros[i] = contadorgiro;
                 contadorDeGiros[i + 1] = contadorgiro;
@@ -106,16 +109,30 @@ void compararElemento(vector<int**>& matrices, int fila, int columna, int* relac
 
         } else if (relacion[i] == 0) {
             if (elemento1 == elemento2) {
-                contadorDeGiros.push_back(0);
+                contadorDeGiros[i] = contadorgiro;
+                contadorDeGiros[i + 1] = contadorgiro;
                 cout << "El elemento en la fila " << fila << ", columna " << columna << " de la matriz " << i + 1 << " es igual al de la matriz " << i + 2 << "." << endl;
             } else {
                 cout << "El elemento en la fila " << fila << ", columna " << columna << " de la matriz " << i + 1 << " no es igual al de la matriz " << i + 2 << "." << endl;
             }
         } else if (relacion[i] == 1) {
             if (elemento1 > elemento2) {
-                contadorDeGiros.push_back(0);
+                contadorDeGiros[i] = contadorgiro;
+                contadorDeGiros[i + 1] = contadorgiro;
                 cout << "El elemento en la fila " << fila << ", columna " << columna << " de la matriz " << i + 1 << " es mayor al de la matriz " << i + 2 << "." << endl;
             } else {
+                while(elemento1<=elemento2 & i==0){
+                    dim=contarFilas(i);
+                    rotateMatrix(matriz1,dim);
+                    elemento1=matriz1[fila][columna];
+                    contadorgiro++;
+                    contadorDeGiros[i]=contadorgiro;
+                    if(contadorgiro>3){
+                        contadorgiro=0;
+                        contadorDeGiros[i]=contadorgiro;
+                    }
+
+                }
                 cout << "El elemento en la fila " << fila << ", columna " << columna << " de la matriz " << i + 1 << " no es mayor al de la matriz " << i + 2 << "." << endl;
             }
         }
