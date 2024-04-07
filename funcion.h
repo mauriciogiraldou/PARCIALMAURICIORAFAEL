@@ -1,19 +1,25 @@
 #ifndef FUNCION_H
 #define FUNCION_H
+
 #include <iostream>
 #include <vector>
+
 using namespace std;
+
 vector<int> dimensiones;
 vector<int> contadorDeGiros;
-int queseaimpar(int n);
-vector<int**> crearMatricesImpares(int n);
+
+void inicializarContadorDeGiros(int dimension);
+void recorrerVectorG(const vector<int>& vec);
+void recorrerVectorD(const vector<int>& vec);
 int** crearMatrizImpar(int n);
 void rotateMatrix(int** mat, int n);
-void liberarMatriz(int** matriz, int n);
-void recorrerVector(const vector<int>& vec);
 int contarFilas(int indice);
+vector<int**> crearMatricesImpares(int n,int d);
+void compararElemento(vector<int**>& matrices, int fila, int columna, int* relacion);
 int validar_numero(int* a);
 int validar_filas_columnas(int* a);
 int validar_comparacion(int* a);
 int* regla_k(int *n);
-#endif // FUNCION_H
+bool comparar_elemento_exitoso = false;
+#endif /* FUNCION_H */
