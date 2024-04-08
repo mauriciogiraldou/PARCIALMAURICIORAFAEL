@@ -1,7 +1,5 @@
-#include <iostream>
-#include <vector>
+#include <funcion.h>
 using namespace std;
-#include "funcion.h"
 int main() {
     int n, fila, columna;
     int num = 0;
@@ -43,7 +41,7 @@ int main() {
     }
     for (int i = 0; i < n; ++i) {
         int** matriz = matrices[i];
-        delete[] matriz[0]; // Solo necesitamos liberar la primera fila ya que se asignaron en bloques contiguos
+        delete[] matriz[0];
         delete[] matriz;
     }
     delete[] invocar_k;
