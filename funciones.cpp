@@ -1,15 +1,15 @@
 #include "funcion.h"
-
+vector<int> dimensiones;
+vector<int> contadorDeGiros;
+bool comparar_elemento_exitoso = false;
 void inicializarContadorDeGiros(int dimension) {
     contadorDeGiros = vector<int>(dimension, 0);
 }
-
 void recorrerVectorG(const vector<int>& vec) {
     for (size_t i = 0; i < vec.size(); ++i) {
         cout << "Giros de la matriz " << i + 1 << ": " << vec[i] << endl;
     }
 }
-
 void recorrerVectorD(const vector<int>& vec) {
     cout << "X = (";
     for (size_t i = 0; i < vec.size(); ++i) {
@@ -20,6 +20,51 @@ void recorrerVectorD(const vector<int>& vec) {
     }
     cout << ")" << endl;
 }
+int validar_filas_columnas(int* a){
+    do {
+        cout<<"Ingrese un numero entero positivo para coordenada fila/columna: ";
+        cin>>*a;
+
+        if(cin.fail() || *a <= 0){
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }else{
+            break;
+        }
+    } while(true);
+    return *a;
+
+}
+
+int validar_comparacion(int* a){
+    do {
+        cout<<"Ingrese un numero que sea -1, 0 o 1: ";
+        cin>>*a;
+
+        if(cin.fail() || *a < -1 || *a > 1){
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }else{
+            break;
+        }
+    } while(true);
+    return *a;
+
+}
+
+int* regla_k(int *n){
+    int* arreglok = new int[*n];
+    for(int i= 0; i<2; i++){
+        validar_filas_columnas(&(arreglok[i]));
+    }
+
+    for(int i = 2; i<*n; i++){
+        validar_comparacion(&(arreglok[i]));
+    }
+
+    return arreglok;
+}
+
 
 int** crearMatrizImpar(int n) {
     int** matriz = new int*[n];
@@ -40,7 +85,6 @@ int** crearMatrizImpar(int n) {
     dimensiones.push_back(n);
     return matriz;
 }
-
 void rotateMatrix(int** mat, int n) {
     for (int i = 0; i < n; i++) {
         for (int j = i + 1; j < n; j++) {
@@ -53,11 +97,9 @@ void rotateMatrix(int** mat, int n) {
         }
     }
 }
-
 int contarFilas(int indice) {
     return dimensiones[indice];
 }
-
 vector<int**> crearMatricesImpares(int n,int d) {
     vector<int**> matrices;
     for (int i = 0; i < n; i++) {
@@ -66,7 +108,6 @@ vector<int**> crearMatricesImpares(int n,int d) {
     }
     return matrices;
 }
-
 void compararElemento(vector<int**>& matrices, int fila, int columna, int* relacion) {
     fila--;
     columna--;
@@ -178,48 +219,4 @@ int validar_numero(int* a){
     return *a;
 
 }
-
-int validar_filas_columnas(int* a){
-    do {
-        cout<<"Ingrese un numero entero positivo para coordenada fila/columna: ";
-        cin>>*a;
-
-        if(cin.fail() || *a <= 0){
-            cin.clear();
-            cin.ignore(10000, '\n');
-        }else{
-            break;
-        }
-    } while(true);
-    return *a;
-}
-
-int validar_comparacion(int* a){
-    do {
-        cout<<"Ingrese un numero que sea -1, 0 o 1: ";
-        cin>>*a;
-
-        if(cin.fail() || *a < -1 || *a > 1){
-            cin.clear();
-            cin.ignore(10000, '\n');
-        }else{
-            break;
-        }
-    } while(true);
-    return *a;
-}
-
-int* regla_k(int *n){
-    int* arreglok = new int[*n];
-    for(int i= 0; i<2; i++){
-        validar_filas_columnas(&(arreglok[i]));
-    }
-
-    for(int i = 2; i<*n; i++){
-        validar_comparacion(&(arreglok[i]));
-    }
-
-    return arreglok;
-}
-
 
