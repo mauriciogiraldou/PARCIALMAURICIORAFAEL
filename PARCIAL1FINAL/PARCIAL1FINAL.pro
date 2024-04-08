@@ -8,4 +8,5 @@ SOURCES += \
         main.cpp
 
 HEADERS += \
-    funcion.h
+    funcion.h \
+    funciones.h
