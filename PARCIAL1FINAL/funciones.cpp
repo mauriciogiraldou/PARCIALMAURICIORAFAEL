@@ -51,21 +51,31 @@ int validar_comparacion(int* a){
     return *a;
 
 }
-
 int* regla_k(int *n){
     int* arreglok = new int[*n];
     for(int i= 0; i<2; i++){
         validar_filas_columnas(&(arreglok[i]));
     }
-
     for(int i = 2; i<*n; i++){
         validar_comparacion(&(arreglok[i]));
     }
-
     return arreglok;
 }
+int validar_numero(int* a){
+    do {
+        cout<<"Ingrese el numero de elementos de la regla k(debe ser mayor o igual a 3): ";
+        cin>>*a;
 
+        if(cin.fail() || *a < 3){
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }else{
+            break;
+        }
+    } while(true);
+    return *a;
 
+}
 int** crearMatrizImpar(int n) {
     int** matriz = new int*[n];
     for (int i = 0; i < n; ++i) {
@@ -202,21 +212,5 @@ void compararElemento(vector<int**>& matrices, int fila, int columna, int* relac
         }
     }
     comparar_elemento_exitoso = true;
-}
-
-int validar_numero(int* a){
-    do {
-        cout<<"Ingrese el numero de elementos de la regla k(debe ser mayor o igual a 3): ";
-        cin>>*a;
-
-        if(cin.fail() || *a < 3){
-            cin.clear();
-            cin.ignore(10000, '\n');
-        }else{
-            break;
-        }
-    } while(true);
-    return *a;
-
 }
 
